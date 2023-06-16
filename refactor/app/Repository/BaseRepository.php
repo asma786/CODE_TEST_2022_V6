@@ -102,8 +102,7 @@ class BaseRepository
      */
     public function instance(array $attributes = [])
     {
-        $model = $this->model;
-        return new $model($attributes);
+       return $this->model;        
     }
 
     /**
@@ -179,8 +178,10 @@ class BaseRepository
     public function delete($id)
     {
         $model = $this->findOrFail($id);
-        $model->delete();
-        return $model;
+        if($model->delete()){
+            return true
+        }
+        return false;
     }
 
     /**
